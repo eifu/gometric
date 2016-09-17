@@ -1,9 +1,5 @@
 package gometric
 
-import (
-	"fmt"
-)
-
 type node struct {
 	X1 int // X1, Y1 are top left coordinates
 	Y1 int
@@ -46,7 +42,6 @@ func Solve(input [][4]int) int {
 
 	for y1 := 0; y1 < 4; y1++ {
 		for x1 := 0; x1 < 4; x1++ {
-			fmt.Print(input[y1][x1])
 			if input[y1][x1] == 1 {
 				n = &node{
 					X1: x1,
@@ -55,9 +50,7 @@ func Solve(input [][4]int) int {
 				counted = helper(n, x1, y1, input, counted)
 			}
 		}
-		fmt.Printf("\n")
 	}
-	fmt.Println(counted)
 
 	result := 0
 	var x1, x2, y1, y2 int
@@ -75,7 +68,6 @@ func Solve(input [][4]int) int {
 						Y2: y2,
 					}
 					if counted[Hash(n)] == 1 {
-						fmt.Printf("%#v\n", *n)
 						result++
 					}
 				}
