@@ -13,8 +13,7 @@ func main() {
 		[4]uint{0, 0, 0, 0},
 	}
 
-	n := gometric.InitNode(a)
-	fmt.Println(n.GetSize())
-	fmt.Println(n.GetBody())
+	c := gometric.Count(a)
+	fmt.Println(gometric.Solve(c))
 
 }
