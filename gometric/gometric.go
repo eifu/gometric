@@ -35,9 +35,27 @@ func Dehash(i int) *node {
 	}
 }
 
-func (n *node) setX2Y2(x2, y2 int){
-	n.body |= uint(y2*4 + x2)
+func pow(a, b int) int{
+	if b == 0{
+		return 1
+	} else if b == 1 {
+		return a
+	} else if b%2 == 0{
+		return pow(a,b/2)*pow(a,b/2)
+	} else{
+		return pow(a,b/2)*pow(a,b/2) *a
+	}
+
+}
+
+func (n *node) setX2Y2On(x2, y2 int){
+	n.body |= 1 << uint(y2*4 + x2)
 	n.size += 1
+}
+
+func (n *node) setX2Y2Off(x2, y2 int){
+	n.body ^= 1 << uint(y2*4 + x2)
+	n.size -= 1
 }
 
 func (n *node) getX1() {
@@ -63,10 +81,10 @@ func InitNode(input [][4]uint) *node {
 	}
 }
 
-func Count(input [][4]uint) map[int]int {
+func Count(input [][4]uint) []int {
 
 	var n *node
-	counted := make(map[int]int)
+	var counted []int
 
 	for y1 := 0; y1 < 4; y1++ {
 		for x1 := 0; x1 < 4; x1++ {
@@ -84,26 +102,41 @@ func Count(input [][4]uint) map[int]int {
 	return counted
 }
 
-func helper(n *node, x1, y1 int, input [][4]uint, counted map[int]int) map[int]int {
-	var x2, y2 int
-
+func helper(n *node, x1, y1 int, input [][4]uint, counted []int) []int{
+	var x2,y2 int
 	// right
 	x2 = x1 + 1
 	y2 = y1
 	if x2 < 4 && input[y2][x2] == 1 {
-		n.setX2Y2(x2, y2)
-		counted[Hash(n)] = 1
+		n.setX2Y2On(x2, y2)
+		counted = append(counted, Hash(n))
 		counted = helper(n, x2, y2, input, counted)
+		n.setX2Y2Off(x2,y2)
 	}
 
 	// bottom
 	x2 = x1
 	y2 = y1 + 1
 	if y2 < 4 && input[y2][x2] == 1 {
-		n.setX2Y2(x2, y2)
-		counted[Hash(n)] = 1
-		//fmt.Printf("%#v\n", *n)
+		n.setX2Y2On(x2, y2)
+		counted = append(counted, Hash(n))
 		counted = helper(n, x2, y2, input, counted)
+		n.setX2Y2Off(x2, y2)
 	}
+
 	return counted
 }
+
+func RemoveDuplicates(c []int) int{
+	t := make(map[int]int)
+	result := 0
+	for _, e := range c{
+		if t[e] != 1{
+			t[e] = 1
+			result += 1
+		}
+	}
+	return result
+
+}
+
