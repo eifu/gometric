@@ -1,7 +1,9 @@
 package gometric
 
 import (
+	"fmt"
 	"testing"
+	"strings"
 )
 
 func TestHash(t *testing.T) {
@@ -103,6 +105,23 @@ func TestCase3(t *testing.T) {
 
 	if RemoveDuplicates(Count(a)) != 15 {
 		t.Errorf("should be 15 but %d", RemoveDuplicates(Count(a)))
+	}
+}
+
+func TestToString(t *testing.T){
+
+	s := "1000\n"+"1000\n"+"1000\n"+"0000\n"
+	a := [][4]uint{
+		[4]uint{1, 0, 0, 0},
+		[4]uint{1, 0, 0, 0},
+		[4]uint{1, 0, 0, 0},
+		[4]uint{0, 0, 0, 0},
+	}
+	s_tostring := ToString(Hash(InitNode(a)))
+	fmt.Println(s)
+	fmt.Println(s_tostring)
+	if !strings.EqualFold(s, s_tostring){
+		t.Errorf("%s and %s should be the same", s, s_tostring)
 	}
 
 }
