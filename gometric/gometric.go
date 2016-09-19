@@ -2,7 +2,9 @@ package gometric
 
 
 import (
-"fmt")
+	"fmt"
+	)
+
 type node struct {
 	size uint
 	body uint
@@ -35,17 +37,26 @@ func Dehash(i int) *node {
 	}
 }
 
-func pow(a, b int) int{
-	if b == 0{
-		return 1
-	} else if b == 1 {
-		return a
-	} else if b%2 == 0{
-		return pow(a,b/2)*pow(a,b/2)
-	} else{
-		return pow(a,b/2)*pow(a,b/2) *a
+func tostringHelper(data int) string{
+	var s string
+	for i:=0; i<4; i++{
+		if 0x1&data == 1{
+			s += "1"
+		}else{
+			s += "0"
+		}
+		data = data >> 1
 	}
+	return s 
+}
 
+func ToString(i int) string{
+	var s string
+	s += tostringHelper(0xF&i) + "\n"
+	s += tostringHelper(0xF&(i>>4)) + "\n"
+	s += tostringHelper(0xF&(i>>8)) + "\n"
+	s += tostringHelper(0xF&(i>>12)) + "\n"
+	return s
 }
 
 func (n *node) setX2Y2On(x2, y2 int){
@@ -148,7 +159,8 @@ func RemoveDuplicates(c []int) int{
 	for _, e := range c{
 		if t[e] != 1{
 			t[e] = 1
-			// fmt.Printf("%#v     %b\n",Dehash(e), Dehash(e).body)
+			fmt.Printf("%#v     %b\n",Dehash(e), Dehash(e).body)
+			// fmt.Println(ToString(e))
 			result += 1
 		}
 	}
