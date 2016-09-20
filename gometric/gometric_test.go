@@ -144,6 +144,20 @@ func TestCase3(t *testing.T) {
 	}
 }
 
+func TestCase4(t *testing.T) {
+
+	a := [][4]uint{
+		[4]uint{0, 0, 0, 0},
+		[4]uint{0, 1, 0, 0},
+		[4]uint{1, 1, 0, 0},
+		[4]uint{0, 1, 0, 0},
+	}
+
+	if RemoveDuplicates(Count(a)) != 7 {
+		t.Errorf("should be 7 but %d", RemoveDuplicates(Count(a)))
+	}
+}
+
 func TestToString(t *testing.T){
 
 	s := "1000\n"+"1000\n"+"1000\n"+"0000\n"
