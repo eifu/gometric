@@ -14,11 +14,8 @@ func main() {
 	}
 
 	c := gometric.Count(a)
-	for _, e := range c{
-		fmt.Println(gometric.ToString(e))
-	}
-	fmt.Println(c)
+
 	i :=gometric.RemoveDuplicates(c)
-	fmt.Println(c)
+
 	fmt.Println(i)
 }

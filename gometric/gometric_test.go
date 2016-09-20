@@ -2,7 +2,6 @@ package gometric
 
 import (
 	"testing"
-	"fmt"
 	"strings"
 )
 
@@ -77,13 +76,12 @@ func TestCount(t *testing.T){
 
 	for y1 := 0; y1 < 4; y1++ {
 		for x1 := 0; x1 < 4; x1++ {
-			visited := make(map[int]int)
 			if input[y1][x1] == 1 {
 				n = &node{
 					size: 1,
 					body: 1 << uint(y1*4+x1),
 				}				
-				counted = helper(n, x1, y1, visited, input, counted)
+				counted = helper(n, x1, y1, input, counted)
 			}
 		}
 	}
@@ -159,6 +157,20 @@ func TestCase4(t *testing.T) {
 	}
 }
 
+func TestCase5(t *testing.T) {
+
+	a := [][4]uint{
+		[4]uint{0, 0, 0, 0},
+		[4]uint{0, 1, 0, 0},
+		[4]uint{1, 1, 1, 0},
+		[4]uint{0, 1, 0, 0},
+	}
+
+	if RemoveDuplicates(Count(a)) != 15 {
+		t.Errorf("should be 15 but %d", RemoveDuplicates(Count(a)))
+	}
+}
+
 func TestToString(t *testing.T){
 
 	s := "1000\n"+"1000\n"+"1000\n"+"0000\n"
@@ -184,10 +196,8 @@ func TestNextTo(t *testing.T){
 	}
 
 	n := InitNode(a)
-	fmt.Printf("%#v  \n%s\n", n, ToString(Hash(n)))
 
 	if n.NextTo(0,0,a) != false{
-		fmt.Println(n.NextTo(0,0,a) )
 		t.Errorf("should be false")
 	}
 
@@ -195,6 +205,8 @@ func TestNextTo(t *testing.T){
 		t.Errorf("should be true")
 	}
 
-
+	if n.NextTo(1,1,a) != false{
+		t.Errorf("should be false")
+	}
 
 }

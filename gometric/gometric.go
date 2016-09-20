@@ -1,8 +1,5 @@
 package gometric
 
-import (
-		"fmt"
-)
 
 type node struct {
 	size uint
@@ -70,6 +67,10 @@ func (n *node) setX2Y2Off(x2, y2 int){
 
 func (n *node) NextTo(x2, y2 int, input[][4]uint) bool {
 
+	if 0x1&(n.body>>uint(4*y2+x2))==1 {
+		return false
+	}
+
 	var i, j int
 	i = x2 
 	j = y2 -1 
@@ -125,18 +126,16 @@ func Count(input [][4]uint) []int {
 
 	var n *node
 	var counted []int
-	var visited map[int]int
 
 	for y1 := 0; y1 < 4; y1++ {
 		for x1 := 0; x1 < 4; x1++ {
 			
 			if input[y1][x1] == 1 {
-				visited = make(map[int]int)
 				n = &node{
 					size: 1,
 					body: 1 << uint(y1*4+x1),
 				}
-				counted = helper(n, x1, y1, visited, input, counted)
+				counted = helper(n, x1, y1, input, counted)
 			}
 		}
 	}
@@ -145,19 +144,14 @@ func Count(input [][4]uint) []int {
 
 
 
-func helper(n *node, x1, y1 int, visited map[int]int, input [][4]uint, counted []int) []int{
-	visited[y1*4+x1] = 1
+func helper(n *node, x1, y1 int, input [][4]uint, counted []int) []int{
 
 	for y2 := 0; y2 < 4; y2 ++{
 		for x2 := 0; x2 < 4; x2 ++{	
-			if y2 == 1 && x2 == 1 {
-				fmt.Printf("%#v \n%s\n%#v\n",n, ToString(Hash(n)), visited[5])
-			}
-
-			if input[y2][x2] == 1 && n.NextTo(x2, y2, input) && visited[y2*4+x2] == 0{
+			if input[y2][x2] == 1 && n.NextTo(x2, y2, input) {
 				n.setX2Y2On(x2, y2)
 				counted = append(counted, Hash(n))
-				counted = helper(n, x2, y2, visited, input, counted)
+				counted = helper(n, x2, y2, input, counted)
 				n.setX2Y2Off(x2,y2)
 			}
 		}
