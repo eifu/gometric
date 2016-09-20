@@ -1,5 +1,9 @@
 package gometric
 
+import (
+		"fmt"
+)
+
 type node struct {
 	size uint
 	body uint
@@ -64,6 +68,43 @@ func (n *node) setX2Y2Off(x2, y2 int){
 	n.size -= 1
 }
 
+func (n *node) NextTo(x2, y2 int, input[][4]uint) bool {
+
+	var i, j int
+	i = x2 
+	j = y2 -1 
+	if 0 <= j{
+		if 0x1&(n.body>>uint(4*j+i))==1{
+			return true
+		}	
+	}
+
+	i = x2 
+	j = y2 +1 
+	if j < 4 {
+		if  0x1&(n.body>>uint(4*j+i))==1{
+			return true
+		}	
+	}
+
+	i = x2 -1
+	j = y2  
+	if 0 <= i {
+		if  0x1&(n.body>>uint(4*j+i))==1{
+			return true
+		}	
+	}
+
+	i = x2 +1
+	j = y2  
+	if i < 4{
+		if  0x1&(n.body>>uint(4*j+i))==1{
+			return true
+		}	
+	}
+	return false
+}
+
 func InitNode(input [][4]uint) *node {
 
 	var body uint = 0
@@ -84,11 +125,13 @@ func Count(input [][4]uint) []int {
 
 	var n *node
 	var counted []int
+	var visited map[int]int
 
 	for y1 := 0; y1 < 4; y1++ {
 		for x1 := 0; x1 < 4; x1++ {
-			visited := make(map[int]int)
+			
 			if input[y1][x1] == 1 {
+				visited = make(map[int]int)
 				n = &node{
 					size: 1,
 					body: 1 << uint(y1*4+x1),
@@ -100,47 +143,24 @@ func Count(input [][4]uint) []int {
 	return counted
 }
 
+
+
 func helper(n *node, x1, y1 int, visited map[int]int, input [][4]uint, counted []int) []int{
-	var x2,y2 int
 	visited[y1*4+x1] = 1
-	// left 	
-	x2 = x1 - 1
-	y2 = y1
-	if x2 >= 0 && input[y2][x2] == 1 && visited[y2*4+x2] == 0{
-		n.setX2Y2On(x2, y2)
-		counted = append(counted, Hash(n))
-		counted = helper(n, x2, y2, visited, input, counted)
-		n.setX2Y2Off(x2,y2)
-	}
 
-	// right
-	x2 = x1 + 1
-	y2 = y1
-	if x2 < 4 && input[y2][x2] == 1 && visited[y2*4+x2] == 0{
-		n.setX2Y2On(x2, y2)
-		counted = append(counted, Hash(n))
-		counted = helper(n, x2, y2, visited, input, counted)
-		n.setX2Y2Off(x2,y2)
-	}
+	for y2 := 0; y2 < 4; y2 ++{
+		for x2 := 0; x2 < 4; x2 ++{	
+			if y2 == 1 && x2 == 1 {
+				fmt.Printf("%#v \n%s\n%#v\n",n, ToString(Hash(n)), visited[5])
+			}
 
-	// top
-	x2 = x1
-	y2 = y1 - 1
-	if y2 >= 0 && input[y2][x2] == 1 && visited[y2*4+x2] == 0{
-		n.setX2Y2On(x2, y2)
-		counted = append(counted, Hash(n))
-		counted = helper(n, x2, y2, visited, input, counted)
-		n.setX2Y2Off(x2, y2)
-	}
-
-	// bottom
-	x2 = x1
-	y2 = y1 + 1
-	if y2 < 4 && input[y2][x2] == 1 && visited[y2*4+x2] == 0{
-		n.setX2Y2On(x2, y2)
-		counted = append(counted, Hash(n))
-		counted = helper(n, x2, y2, visited, input, counted)
-		n.setX2Y2Off(x2, y2)
+			if input[y2][x2] == 1 && n.NextTo(x2, y2, input) && visited[y2*4+x2] == 0{
+				n.setX2Y2On(x2, y2)
+				counted = append(counted, Hash(n))
+				counted = helper(n, x2, y2, visited, input, counted)
+				n.setX2Y2Off(x2,y2)
+			}
+		}
 	}
 
 	return counted
@@ -152,6 +172,7 @@ func RemoveDuplicates(c []int) int{
 	for _, e := range c{
 		if t[e] != 1{
 			t[e] = 1
+			// fmt.Printf("%#v \n%s\n",Dehash(e), ToString(e))
 			result += 1
 		}
 	}

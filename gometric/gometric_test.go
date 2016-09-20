@@ -2,6 +2,7 @@ package gometric
 
 import (
 	"testing"
+	"fmt"
 	"strings"
 )
 
@@ -171,5 +172,29 @@ func TestToString(t *testing.T){
 	if !strings.EqualFold(s, s_tostring){
 		t.Errorf("%s and %s should be the same", s, s_tostring)
 	}
+}
+
+func TestNextTo(t *testing.T){
+
+	a := [][4]uint{
+		[4]uint{0, 0, 0, 0},
+		[4]uint{0, 1, 0, 0},
+		[4]uint{0, 1, 0, 0},
+		[4]uint{0, 1, 1, 0},
+	}
+
+	n := InitNode(a)
+	fmt.Printf("%#v  \n%s\n", n, ToString(Hash(n)))
+
+	if n.NextTo(0,0,a) != false{
+		fmt.Println(n.NextTo(0,0,a) )
+		t.Errorf("should be false")
+	}
+
+	if n.NextTo(1,0,a) != true{
+		t.Errorf("should be true")
+	}
+
+
 
 }
