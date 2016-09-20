@@ -8,33 +8,27 @@ import (
 )
 
 func main() {
-	// a := [][4]uint{
-	// 	[4]uint{1, 1, 1, 0},
-	// 	[4]uint{0, 1, 0, 0},
-	// 	[4]uint{0, 0, 0, 0},
-	// 	[4]uint{0, 0, 0, 0},
-	// }
 
-	var a [][4]uint
-	var aa [4]uint
+	var input [][4]uint
+	var row [4]uint
 	reader := bufio.NewReader(os.Stdin)
 	for i:= 0;i < 4; i++{
 		guess, err := reader.ReadString('\n')
 		if err!=nil{
-			fmt.Println("aa")
-			return 
+			fmt.Fprintf(os.Stderr, "Read error: %v\n", guess, err)
+			os.Exit(1)
 		}
 
-		aa = [4]uint{0, 0, 0, 0}
+		row = [4]uint{0, 0, 0, 0}
 		for j := 0; j < 4;j ++{
 			if guess[j] == '1'{
-				aa[j] = 1
+				row[j] = 1
 			}
 		}
-		a = append(a, aa)
+		input = append(input, row)
 	}
 
-	c := gometric.Count(a)
+	c := gometric.Count(input)
 
 	i :=gometric.RemoveDuplicates(c)
 
