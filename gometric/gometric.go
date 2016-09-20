@@ -1,10 +1,5 @@
 package gometric
 
-
-import (
-	"fmt"
-	)
-
 type node struct {
 	size uint
 	body uint
@@ -75,7 +70,7 @@ func InitNode(input [][4]uint) *node {
 	var size uint = 0
 	for y := 0; y < 4; y++ {
 		for x := 0; x < 4; x++ {
-			body |= (input[y][x]<<uint(y*4 + x))
+			body |= input[y][x]<<uint(y*4 + x)
 			size += input[y][x]
 		}
 	}
@@ -96,14 +91,12 @@ func Count(input [][4]uint) []int {
 			if input[y1][x1] == 1 {
 				n = &node{
 					size: 1,
-					body: uint(y1*4 + x1),
+					body: 1 << uint(y1*4+x1),
 				}
 				counted = helper(n, x1, y1, visited, input, counted)
 			}
 		}
 	}
-	fmt.Println(counted)
-
 	return counted
 }
 
@@ -159,12 +152,10 @@ func RemoveDuplicates(c []int) int{
 	for _, e := range c{
 		if t[e] != 1{
 			t[e] = 1
-			fmt.Printf("%#v     %b\n",Dehash(e), Dehash(e).body)
-			// fmt.Println(ToString(e))
 			result += 1
 		}
 	}
-	return result/2
+	return result
 
 }
 

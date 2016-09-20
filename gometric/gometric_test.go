@@ -1,7 +1,6 @@
 package gometric
 
 import (
-	"fmt"
 	"testing"
 	"strings"
 )
@@ -64,6 +63,43 @@ func TestSetX2Y2Off(t *testing.T){
 	}
 }
 
+func TestCount(t *testing.T){
+	var n *node
+	var counted []int
+
+	input := [][4]uint{
+		[4]uint{1, 0, 0 ,0},
+		[4]uint{1, 0, 0, 0},
+		[4]uint{1, 0, 0, 0},
+		[4]uint{0, 0, 0, 0},
+	}
+
+	for y1 := 0; y1 < 4; y1++ {
+		for x1 := 0; x1 < 4; x1++ {
+			visited := make(map[int]int)
+			if input[y1][x1] == 1 {
+				n = &node{
+					size: 1,
+					body: 1 << uint(y1*4+x1),
+				}				
+				counted = helper(n, x1, y1, visited, input, counted)
+			}
+		}
+	}
+
+	table := make(map[int]int)
+	result := 0
+	for _, e := range counted{
+		if table[e] != 1{
+			table[e] = 1
+			result += 1
+		}
+	}
+	if result != 3{
+		t.Errorf("should be 3 but %d", result)
+	}
+}
+
 func TestCase1(t *testing.T) {
 
 	a := [][4]uint{
@@ -118,8 +154,6 @@ func TestToString(t *testing.T){
 		[4]uint{0, 0, 0, 0},
 	}
 	s_tostring := ToString(Hash(InitNode(a)))
-	fmt.Println(s)
-	fmt.Println(s_tostring)
 	if !strings.EqualFold(s, s_tostring){
 		t.Errorf("%s and %s should be the same", s, s_tostring)
 	}
