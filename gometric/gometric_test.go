@@ -171,6 +171,34 @@ func TestCase5(t *testing.T) {
 	}
 }
 
+
+func TestCase6(t *testing.T) {
+
+	a := [][4]uint{
+		[4]uint{0, 1, 0, 0},
+		[4]uint{1, 1, 0, 0},
+		[4]uint{1, 1, 1, 0},
+		[4]uint{0, 0, 0, 0},
+	}
+
+	if RemoveDuplicates(Count(a)) != 27{
+		t.Errorf("should be 27 but %d", RemoveDuplicates(Count(a)))
+	}
+}
+func TestCase7(t *testing.T) {
+
+	a := [][4]uint{
+		[4]uint{0, 0, 0, 0},
+		[4]uint{1, 1, 0, 0},
+		[4]uint{1, 1, 0, 0},
+		[4]uint{0, 0, 0, 0},
+	}
+
+	if RemoveDuplicates(Count(a)) != 9{
+		t.Errorf("should be 22 but %d", RemoveDuplicates(Count(a)))
+	}
+}
+
 func TestToString(t *testing.T){
 
 	s := "1000\n"+"1000\n"+"1000\n"+"0000\n"

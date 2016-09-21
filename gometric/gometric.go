@@ -65,7 +65,7 @@ func (n *node) setX2Y2Off(x2, y2 int){
 	n.size -= 1
 }
 
-func (n *node) NextTo(x2, y2 int, input[][4]uint) bool {
+func (n *node) NextTo(x2, y2 int, input[][]uint) bool {
 
 	if 0x1&(n.body>>uint(4*y2+x2))==1 {
 		return false
@@ -122,7 +122,7 @@ func InitNode(input [][4]uint) *node {
 	}
 }
 
-func Count(input [][4]uint) []int {
+func Count(input [][]uint) []int {
 
 	var n *node
 	var counted []int
@@ -144,7 +144,7 @@ func Count(input [][4]uint) []int {
 
 
 
-func helper(n *node, x1, y1 int, input [][4]uint, counted []int) []int{
+func helper(n *node, x1, y1 int, input [][]uint, counted []int) []int{
 
 	for y2 := 0; y2 < 4; y2 ++{
 		for x2 := 0; x2 < 4; x2 ++{	
