@@ -106,7 +106,7 @@ func (n *node) NextTo(x2, y2 int, input[][]uint) bool {
 	return false
 }
 
-func InitNode(input [][4]uint) *node {
+func InitNode(input [][]uint) *node {
 
 	var body uint = 0
 	var size uint = 0

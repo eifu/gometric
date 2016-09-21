@@ -7,11 +7,11 @@ import (
 
 func TestHash(t *testing.T) {
 
-	n := InitNode([][4]uint{
-						[4]uint{0, 1, 1, 1},
-						[4]uint{0, 0, 0, 0},
-						[4]uint{0, 0, 0, 0},
-						[4]uint{0, 0, 0, 0},
+	n := InitNode([][]uint{
+						[]uint{0, 1, 1, 1},
+						[]uint{0, 0, 0, 0},
+						[]uint{0, 0, 0, 0},
+						[]uint{0, 0, 0, 0},
 						})
 
 	if Hash(n) != Hash(Dehash(Hash(n))) {
@@ -21,11 +21,11 @@ func TestHash(t *testing.T) {
 }
 
 func TestHash2(t *testing.T){
-	n := InitNode([][4]uint{
-						[4]uint{0, 1, 1, 1},
-						[4]uint{0, 0, 0, 0},
-						[4]uint{0, 0, 0, 0},
-						[4]uint{0, 0, 0, 0},
+	n := InitNode([][]uint{
+						[]uint{0, 1, 1, 1},
+						[]uint{0, 0, 0, 0},
+						[]uint{0, 0, 0, 0},
+						[]uint{0, 0, 0, 0},
 						})
 
 	if Hash(n) != 14{
@@ -35,11 +35,11 @@ func TestHash2(t *testing.T){
 
 func TestSetX2Y2On(t *testing.T){
 
-	n := InitNode([][4]uint{
-					[4]uint{0, 1, 1, 0},
-					[4]uint{0, 0, 0, 0},
-					[4]uint{0, 0, 0, 0},
-					[4]uint{0, 0, 0, 0},
+	n := InitNode([][]uint{
+					[]uint{0, 1, 1, 0},
+					[]uint{0, 0, 0, 0},
+					[]uint{0, 0, 0, 0},
+					[]uint{0, 0, 0, 0},
 					})
 	n.setX2Y2On(3,0)
 
@@ -50,11 +50,11 @@ func TestSetX2Y2On(t *testing.T){
 
 func TestSetX2Y2Off(t *testing.T){
 
-	n := InitNode([][4]uint{
-					[4]uint{0, 1, 1, 1},
-					[4]uint{1, 0, 0, 0},
-					[4]uint{0, 0, 0, 0},
-					[4]uint{0, 0, 0, 0},
+	n := InitNode([][]uint{
+					[]uint{0, 1, 1, 1},
+					[]uint{1, 0, 0, 0},
+					[]uint{0, 0, 0, 0},
+					[]uint{0, 0, 0, 0},
 					})
 	// fmt.Println(Hash(n))
 	n.setX2Y2Off(0,1)
@@ -67,11 +67,11 @@ func TestCount(t *testing.T){
 	var n *node
 	var counted []int
 
-	input := [][4]uint{
-		[4]uint{1, 0, 0 ,0},
-		[4]uint{1, 0, 0, 0},
-		[4]uint{1, 0, 0, 0},
-		[4]uint{0, 0, 0, 0},
+	input := [][]uint{
+		[]uint{1, 0, 0 ,0},
+		[]uint{1, 0, 0, 0},
+		[]uint{1, 0, 0, 0},
+		[]uint{0, 0, 0, 0},
 	}
 
 	for y1 := 0; y1 < 4; y1++ {
@@ -101,11 +101,11 @@ func TestCount(t *testing.T){
 
 func TestCase1(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 0, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 0, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 3 {
@@ -116,11 +116,11 @@ func TestCase1(t *testing.T) {
 
 func TestCase2(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 1, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 1, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 6 {
@@ -131,11 +131,11 @@ func TestCase2(t *testing.T) {
 
 func TestCase3(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 0, 1},
-		[4]uint{0, 1, 1, 1},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 0, 1},
+		[]uint{0, 1, 1, 1},
 	}
 
 	if RemoveDuplicates(Count(a)) != 15 {
@@ -145,11 +145,11 @@ func TestCase3(t *testing.T) {
 
 func TestCase4(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{1, 1, 0, 0},
-		[4]uint{0, 1, 0, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{1, 1, 0, 0},
+		[]uint{0, 1, 0, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 7 {
@@ -159,11 +159,11 @@ func TestCase4(t *testing.T) {
 
 func TestCase5(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{1, 1, 1, 0},
-		[4]uint{0, 1, 0, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{1, 1, 1, 0},
+		[]uint{0, 1, 0, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 15 {
@@ -174,11 +174,11 @@ func TestCase5(t *testing.T) {
 
 func TestCase6(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 1, 0, 0},
-		[4]uint{1, 1, 0, 0},
-		[4]uint{1, 1, 1, 0},
-		[4]uint{0, 0, 0, 0},
+	a := [][]uint{
+		[]uint{0, 1, 0, 0},
+		[]uint{1, 1, 0, 0},
+		[]uint{1, 1, 1, 0},
+		[]uint{0, 0, 0, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 27{
@@ -187,11 +187,11 @@ func TestCase6(t *testing.T) {
 }
 func TestCase7(t *testing.T) {
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{1, 1, 0, 0},
-		[4]uint{1, 1, 0, 0},
-		[4]uint{0, 0, 0, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{1, 1, 0, 0},
+		[]uint{1, 1, 0, 0},
+		[]uint{0, 0, 0, 0},
 	}
 
 	if RemoveDuplicates(Count(a)) != 9{
@@ -202,11 +202,11 @@ func TestCase7(t *testing.T) {
 func TestToString(t *testing.T){
 
 	s := "1000\n"+"1000\n"+"1000\n"+"0000\n"
-	a := [][4]uint{
-		[4]uint{1, 0, 0, 0},
-		[4]uint{1, 0, 0, 0},
-		[4]uint{1, 0, 0, 0},
-		[4]uint{0, 0, 0, 0},
+	a := [][]uint{
+		[]uint{1, 0, 0, 0},
+		[]uint{1, 0, 0, 0},
+		[]uint{1, 0, 0, 0},
+		[]uint{0, 0, 0, 0},
 	}
 	s_tostring := ToString(Hash(InitNode(a)))
 	if !strings.EqualFold(s, s_tostring){
@@ -216,11 +216,11 @@ func TestToString(t *testing.T){
 
 func TestNextTo(t *testing.T){
 
-	a := [][4]uint{
-		[4]uint{0, 0, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 0, 0},
-		[4]uint{0, 1, 1, 0},
+	a := [][]uint{
+		[]uint{0, 0, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 0, 0},
+		[]uint{0, 1, 1, 0},
 	}
 
 	n := InitNode(a)
