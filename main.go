@@ -64,7 +64,7 @@ func main() {
 		input = append(input, row)
 	}
 
-	c := gometric.Count(input)
+	c := gometric.Count(input, width, height)
 
 	i :=gometric.RemoveDuplicates(c)
 
